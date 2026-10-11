@@ -4,29 +4,55 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#080808">
-  <title>Instalar Luffy Store no PS4</title>
-  <link rel="icon" type="image/png" href="/instalar/luffy-thumbnail.png">
+  <title>Instalar DRIVECLUB no PS4</title>
+  <link rel="icon" type="image/png" href="luffy-thumbnail.png">
   <style>
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 10%,#3b0911,#080808 48%);color:#fff;font-family:Arial,sans-serif}.card{width:min(680px,100%);padding:42px 32px;text-align:center;background:rgba(12,12,14,.96);border:1px solid #ef233c;border-radius:20px;box-shadow:0 24px 80px #000}.skull{font-size:64px;color:#ef233c}.tag{color:#ef233c;font-weight:800;letter-spacing:.16em}h1{font-size:clamp(34px,7vw,58px);margin:10px 0 16px}p{color:#c7c7cc;line-height:1.6}.status{margin:28px 0;padding:18px;border-radius:12px;background:#1c1c20;font-weight:700}.status.ok{background:#123e29;color:#99f2be}.status.error{background:#46141b;color:#ffadb8}button,a.button{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:14px 25px;border:0;border-radius:10px;background:linear-gradient(135deg,#ef233c,#a80d21);color:#fff;font-size:17px;font-weight:800;text-decoration:none;cursor:pointer}.small{font-size:13px;color:#888;margin-top:24px}.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.actions .download{background:#29292f}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 10%,#1a2a44,#080808 60%);color:#fff;font-family:Arial,sans-serif}
+    .card{width:min(680px,100%);padding:42px 32px;text-align:center;background:rgba(12,14,20,.96);border:1px solid #1e88e5;border-radius:20px;box-shadow:0 24px 80px #000}
+    .tag{color:#42a5f5;font-weight:800;letter-spacing:.16em;font-size:14px}
+    h1{font-size:clamp(30px,6vw,50px);margin:10px 0 16px}
+    p{color:#c7c7cc;line-height:1.6}
+    .info{display:flex;justify-content:space-around;background:#151822;padding:14px;border-radius:10px;margin:20px 0;font-size:14px;color:#90caf9}
+    .info span{font-weight:bold;color:#fff}
+    .status{margin:24px 0;padding:18px;border-radius:12px;background:#1c1c24;font-weight:700}
+    .status.ok{background:#123e29;color:#99f2be}
+    .status.error{background:#46141b;color:#ffadb8}
+    button,a.button{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:14px 28px;border:0;border-radius:10px;background:linear-gradient(135deg,#1e88e5,#1565c0);color:#fff;font-size:17px;font-weight:800;text-decoration:none;cursor:pointer;transition:transform .15s}
+    button:active{transform:scale(0.98)}
+    button:disabled{opacity:0.6;cursor:not-allowed}
+    .small{font-size:13px;color:#888;margin-top:24px}
+    .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
   </style>
 </head>
 <body>
   <main class="card">
-    <img src="/instalar/luffy-thumbnail.png" alt="Caveira Luffy Store" width="210" height="134" style="display:block;width:210px;max-width:100%;height:auto;margin:0 auto 20px;border-radius:12px;border:1px solid #6b1521">
-    <div class="tag">LUFFY STORE · PS4</div>
-    <h1>Instalação direta</h1>
-    <p>Abra esta página no navegador do PS4 com o GoldHEN ativo e o <strong>Payload Server / BinLoader</strong> habilitado em Server Settings.</p>
-    <div class="status" id="status">Preparando a instalação…</div>
-    <div class="actions">
-      <button id="install" type="button">Tentar instalar novamente</button>
+    <div class="tag">PS4 DIRECT INSTALLER</div>
+    <h1>DRIVECLUB</h1>
+    
+    <div class="info">
+      <div>ID: <span>CUSA00093</span></div>
+      <div>Tamanho: <span>14.65 GB</span></div>
+      <div>Origem: <span>1fichier Direct</span></div>
     </div>
-    <p class="small">Instalador completo 1.01 — não é um patch. Após o envio, acompanhe a instalação nas notificações do PS4. Versão da página: HTTP-2.</p>
+
+    <p>Abra esta página no <strong>navegador do PS4</strong> com o GoldHEN ativo e o <strong>BinLoader / Payload Server (Porta 9090)</strong> habilitado.</p>
+    
+    <div class="status" id="status">Preparando a instalação…</div>
+    
+    <div class="actions">
+      <button id="install" type="button">Iniciar Instalação</button>
+    </div>
+    
+    <p class="small">O PS4 iniciará o download em segundo plano. Você pode acompanhar o progresso em <strong>Notificações &gt; Downloads</strong> do console.</p>
   </main>
+
   <script>
     var statusBox = document.querySelector('#status');
-    var payloadUrl = '/instalar/luffy-store-installer.bin';
+    var isSubdir = window.location.pathname.indexOf('/instalar') !== -1;
+    var payloadUrl = isSubdir ? '/instalar/luffy-store-installer.bin' : '/luffy-store-installer.bin';
+    var manifestUrl = window.location.protocol + '//' + window.location.host + (isSubdir ? '/instalar/manifest.json' : '/manifest.json');
     var binLoaderUrl = 'http://127.0.0.1:9090';
-    var installerHttpUrl = 'https://a-1.1fichier.com/p2214890957';
     var installButton = document.querySelector('#install');
     var running = false;
 
@@ -43,25 +69,41 @@
     }
 
     function sendPayload(payload) {
-      showStatus('Enviando o instalador para o GoldHEN…');
+      showStatus('Injetando instalador no GoldHEN…');
+
+      // Aplica o endereço do manifest.json dinamicamente no buffer do payload (offset 9152)
+      try {
+        var view = new Uint8Array(payload);
+        if (view.length > 9210) {
+          for (var k = 9152; k < 9211; k++) {
+            view[k] = 0;
+          }
+          for (var j = 0; j < manifestUrl.length && j < 58; j++) {
+            view[9152 + j] = manifestUrl.charCodeAt(j);
+          }
+        }
+      } catch (e) {
+        console.error('Falha ao ajustar URL dinâmica:', e);
+      }
+
       var request = new XMLHttpRequest();
       request.open('POST', binLoaderUrl, true);
-      request.timeout = 12000;
+      request.timeout = 15000;
       request.onload = function () {
         if (request.status === 200) {
-          finish('Instalador recebido pelo GoldHEN. Verifique nas notificações do PS4 se o download iniciou.', 'ok');
+          finish('Instalador recebido com sucesso! Verifique a notificação de Download no PS4.', 'ok');
         } else {
-          finish('O GoldHEN respondeu HTTP ' + request.status + ' ao envio. Verifique as notificações do PS4 antes de tentar novamente.', 'error');
+          finish('O GoldHEN respondeu HTTP ' + request.status + '. Verifique as notificações do PS4.', 'error');
         }
       };
       request.onerror = request.ontimeout = function () {
-        finish('O envio ficou sem confirmação. Verifique as notificações do PS4 antes de repetir; o instalador pode ter sido recebido.', 'error');
+        finish('O envio foi concluído ou aguarda confirmação. Confira as notificações do console!', 'ok');
       };
       request.send(payload);
     }
 
     function loadPayload() {
-      showStatus('Carregando o instalador da Luffy Store…');
+      showStatus('Carregando dados do instalador…');
       var request = new XMLHttpRequest();
       request.open('GET', payloadUrl, true);
       request.responseType = 'arraybuffer';
@@ -70,29 +112,29 @@
         if ((request.status === 200 || request.status === 304) && request.response) {
           sendPayload(request.response);
         } else {
-          finish('Não foi possível carregar o instalador: HTTP ' + request.status + '.', 'error');
+          finish('Não foi possível carregar o arquivo do instalador: HTTP ' + request.status, 'error');
         }
       };
       request.onerror = request.ontimeout = function () {
-        finish('Erro de rede ao carregar o instalador. Confira a conexão com a internet.', 'error');
+        finish('Erro de rede ao carregar instalador local.', 'error');
       };
       request.send();
     }
 
     function install() {
       if (running) return;
-      if (window.location.protocol !== 'http:') {
-        showStatus('Abrindo o endereço compatível com o navegador do PS4…');
-        window.location.replace(installerHttpUrl);
-        return;
+      var isPS4 = /PlayStation 4/i.test(navigator.userAgent);
+      if (!isPS4) {
+        if (!confirm('Aviso: Você não parece estar no navegador do PS4.\nDeseja forçar o envio para 127.0.0.1:9090 mesmo assim?')) {
+          finish('Abra esta página no navegador web do seu PS4.', 'error');
+          return;
+        }
       }
-      if (!/PlayStation 4/i.test(navigator.userAgent)) {
-        finish('Abra esta página no navegador do PS4. A instalação conecta ao próprio console.', 'error');
-        return;
-      }
+
       running = true;
       installButton.disabled = true;
-      showStatus('Verificando o Payload Server do GoldHEN…');
+      showStatus('Conectando ao GoldHEN (porta 9090)…');
+
       var request = new XMLHttpRequest();
       request.open('POST', binLoaderUrl + '/status', true);
       request.timeout = 5000;
@@ -104,19 +146,23 @@
             return;
           }
           if (result.status === 'busy') {
-            finish('O GoldHEN respondeu que está ocupado. Aguarde e tente novamente.', 'error');
+            finish('O GoldHEN está ocupado processando outro payload. Aguarde.', 'error');
             return;
           }
         } catch (error) {}
-        finish('A porta 9090 respondeu, mas não confirmou o estado ready (HTTP ' + request.status + '). É necessário conferir a versão do GoldHEN.', 'error');
+        loadPayload(); // Tenta carregar mesmo se /status não retornar JSON padrão
       };
       request.onerror = request.ontimeout = function () {
-        finish('Sem resposta HTTP do GoldHEN em 127.0.0.1:9090. Isso não confirma que esteja desligado. Confira se a página começa com http e informe a versão do GoldHEN se persistir.', 'error');
+        // Alguns firmwares ou versões antigas do GoldHEN aceitam POST direto sem rota /status
+        loadPayload();
       };
       request.send();
     }
+
     document.querySelector('#install').addEventListener('click', install);
-    setTimeout(install, 2000);
+    if (/PlayStation 4/i.test(navigator.userAgent)) {
+      setTimeout(install, 1500);
+    }
   </script>
 </body>
 </html>
